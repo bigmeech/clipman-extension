@@ -1,0 +1,34 @@
+{
+  "name": "clipman",
+  "version": "1.0.0",
+  "description": "testing react with clipman",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bigmeech/clipman.git"
+  },
+  "keywords": [
+    "clipboard",
+    "manager"
+  ],
+  "author": "Larry Eliemenye",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bigmeech/clipman/issues"
+  },
+  "homepage": "https://github.com/bigmeech/clipman#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-browserify": "^0.5.1",
+    "gulp-concat": "^2.6.1",
+    "gulp-help": "^1.6.1",
+    "gulp-jsx": "^2.0.1",
+    "gulp-rename": "^1.2.2",
+    "through2": "^2.0.3"
+  }
+}

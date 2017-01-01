@@ -1,0 +1,36 @@
+{
+  "name": "Clipman",
+  "version": "0.1",
+  "description": "Clipman is a simple and intuitive chrome utility that extends chrome to support multiple copy and paste operations.",
+  "manifest_version": 2,
+  "icons": {
+    "16": "assets/clipman_icon_16.png",
+    "48": "assets/clipman_icon_48.png",
+    "128": "assets/clipman_icon_128.png"
+  },
+  "background": {
+    "persistent": false,
+    "scripts": ["lib/background.js"]
+  },
+  "incognito":"spanning",
+  "content_scripts":[
+    {
+      "matches": ["http://*/*","https://*/*"],
+      "css":["css/styles.css"],
+      "js": ["bundle.js"]
+    }
+  ],
+  "permissions": [
+    "clipboardRead",
+    "clipboardWrite",
+    "http://*.google.com/",
+    "https://*.google.com/"],
+  "browser_action": {
+    "default_title": "Clipman",
+    "default_icon": "assets/clipman_icon_16.png",
+    "default_popup": "index.html"
+  },
+  "web_accessible_resources":[
+    "dialog.html"
+  ]
+}
