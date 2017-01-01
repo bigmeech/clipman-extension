@@ -1,22 +1,43 @@
 'use strict';
 
-const jsx = require('gulp-jsx');
+const gulp = require('gulp-help')(require('gulp'));
 const babel = require('gulp-babel');
 const browserify = require('gulp-browserify');
-const gulp = require('gulp-help')(require('gulp'));
+const concat = require('gulp-concat');
 
-gulp.task('create:dist', function(){
-  gulp.src('./src/**/*.jsx')
+
+//path to files for build
+const paths = {
+  components: 'src/content/',
+  content: 'src/content.jsx',
+  background: 'src/background.js',
+  assets: 'src/assets',
+  css: 'src/css',
+  manifest: 'src/manifest.json'
+};
+
+/**
+ * copies static files to dist folder
+ */
+gulp.task('copy:static-dist', function(){
+  gulp.src([paths.assets, paths.css, paths.manifest ])
+    .pipe(gulp.dest('dist'))
 });
 
-//bundle background js
-gulp.task('bundle:background', function(){
-  gulp.src('./src/**/*.jsx')
+//uses babel as transpiler for jsx and es6
+gulp.task('compile:babel', function (){
+  gulp.src([ paths.content, paths.components, paths.background ])
+    .pipe(babel({
+      only: [ paths.content, paths.components, paths.background ],
+      compact:true
+    }))
+    .pipe(gulp.dest('dist'))
 });
 
-//bundle content script
-gulp.task('bundle:content', function(){
-  gulp.src('./src/**/*.jsx')
+// starts watcher for development
+gulp.task('build:dist', function(){
+  gulp.watch(paths.background,['compile:babel']);
+  gulp.watch([paths.manifest, paths.assets, paths.css], ['copy:static-dist']);
 });
 
-gulp.task('default',[ 'create:dist', 'bundle:background', 'bundle:content' ]);
+gulp.task('default',[ 'build:dist' ]);

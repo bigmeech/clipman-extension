@@ -1,10 +1,12 @@
-
-const Dialog = React.createClass({
+/**
+ *
+ */
+const Extension = React.createClass({
   displayName: 'Dialog',
   render: function(){
     return (
-        <ul>{ this.props.children }</ul>
-    )
+      <div id='clipman-main'></div>
+    );
   }
 });
 
@@ -17,4 +19,4 @@ const Space = React.createClass({
   }
 });
 
-React.render(<Dialog><Space link="saw"/></Dialog>, document.body);
+React.render(<Extension></Extension>, document.body);

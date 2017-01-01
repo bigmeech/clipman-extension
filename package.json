@@ -28,7 +28,9 @@
     "gulp-concat": "^2.6.1",
     "gulp-help": "^1.6.1",
     "gulp-jsx": "^2.0.1",
+    "gulp-react": "^3.1.0",
     "gulp-rename": "^1.2.2",
-    "through2": "^2.0.3"
+    "through2": "^2.0.3",
+    "uglify": "^0.1.5"
   }
 }
