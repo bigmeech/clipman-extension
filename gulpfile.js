@@ -74,7 +74,7 @@ gulp.task('compile:es6', function (){
   gulp.src(paths.background)
     .pipe(babel({
       only: [paths.background],
-      compact:true
+      presets: ['es2015']
     }))
     .pipe(gulp.dest('dist'))
 });
@@ -84,7 +84,9 @@ gulp.task('compile:es6', function (){
  */
 gulp.task('compile:jsx', function (){
   gulp.src([ paths.content ])
-    .pipe(react())
+    .pipe(babel({
+      plugins:['transform-react-jsx']
+    }))
     .pipe(gulp.dest('dist'))
 });
 
@@ -95,7 +97,7 @@ gulp.task('build:dist', ['copy:static-dist-manifest','copy:static-dist-assets','
 gulp.task('start:dev', function(){
   gulp.watch([paths.browserifyEntryPoint, paths.lib], ['bundle:dependencies']);
   gulp.watch([paths.vendor], ['build:dist']);
-  gulp.watch([paths.assets, paths.css, paths.manifest], ['build:dist']);
+  gulp.watch([paths.assets, paths.css, paths.manifest, paths.css], ['build:dist']);
   gulp.watch([paths.content, paths.components], ['compile:jsx']);
   gulp.watch([paths.background], ['compile:es6']);
 });

@@ -19,4 +19,6 @@ const Space = React.createClass({
   }
 });
 
-React.render(<Extension></Extension>, document.body);
+$('body').append('<div id="clipman"></div>');
+
+React.render(<Extension></Extension>, document.getElementById('clipman'));
