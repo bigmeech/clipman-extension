@@ -22,7 +22,7 @@ export default class ExtensionRoot extends React.Component{
   render (){
     return (
       <ul>
-        {this.props.list.map((clipboardObject) => {
+        {this.props.clipboards.map((clipboardObject) => {
           return <ClipSpace>{clipboardObject}</ClipSpace>
         })}
       </ul>
