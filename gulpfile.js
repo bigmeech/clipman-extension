@@ -5,7 +5,9 @@ const babel = require('gulp-babel');
 const concat = require('gulp-concat');
 const react = require('gulp-react');
 const rename = require('gulp-rename');
-const browserify = require('gulp-browserify');
+const babelify = require('babelify');
+const browserify = require('browserify');
+const source = require('vinyl-source-stream');
 
 
 //path to files for build
@@ -58,11 +60,10 @@ gulp.task('copy:static-dist-manifest', function(){
  * create bundle for dependencies
  */
 gulp.task('bundle:dependencies', function(){
-  gulp.src(paths.browserifyEntryPoint)
-    .pipe(browserify({
-      insertGlobals : true
-    }))
-    .pipe(rename('bundle.js'))
+  return browserify({entries: paths.browserifyEntryPoint, extensions: ['.js'], debug: true})
+    .transform("babelify", {presets: ["es2015", "stage-0"]})
+    .bundle()
+    .pipe(source('bundle.js'))
     .pipe(gulp.dest('dist'))
 });
 
@@ -71,22 +72,30 @@ gulp.task('bundle:dependencies', function(){
  * uses babel as transpiler for es6
  */
 gulp.task('compile:es6', function (){
-  gulp.src(paths.background)
+
+
+  return browserify({entries: paths.background, extensions: ['.js'], debug: true})
+    .transform("babelify", {presets: ["es2015", "stage-0"]})
+    .bundle()
+    .pipe(source('background.js'))
+    .pipe(gulp.dest('dist'));
+
+  /*gulp.src(paths.background)
     .pipe(babel({
       only: [paths.background],
       presets: ['es2015']
     }))
-    .pipe(gulp.dest('dist'))
+    .pipe(gulp.dest('dist'))*/
 });
 
 /**
  * use transpiler for jsx
  */
 gulp.task('compile:jsx', function (){
-  gulp.src([ paths.content ])
-    .pipe(babel({
-      plugins:['transform-react-jsx']
-    }))
+  return browserify({entries: paths.content, extensions: ['.jsx'], debug: true})
+    .transform("babelify", {presets: ["es2015", "stage-0", "react"]})
+    .bundle()
+    .pipe(source('content.js'))
     .pipe(gulp.dest('dist'))
 });
 

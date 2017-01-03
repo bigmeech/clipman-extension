@@ -1,12 +1,28 @@
-/**
- *
- */
+'use strict';
+
+import React from './vendor/react'
+import $ from './vendor/jquery'
+
+export default class ExtensionRoot extends React.Component{
+  constructor(){
+    super();
+    this.displayName = '';
+  }
+
+  render (){
+    return (
+      "<div id='clipman-main'></div>"
+    )
+  }
+}
+
+class ClipSpaces extends React.Component{
+
+}
 const Extension = React.createClass({
   displayName: 'Dialog',
   render: function(){
-    return (
-      <div id='clipman-main'></div>
-    );
+    return (<div/>);
   }
 });
 
