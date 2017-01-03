@@ -13,7 +13,7 @@ const source = require('vinyl-source-stream');
 //path to files for build
 const paths = {
   vendor: 'src/vendor/**/*.js',
-  components: 'src/content/',
+  components: 'src/content/**/*.jsx',
   content: 'src/content.jsx',
   background: 'src/background.js',
   assets: 'src/assets/**/*.*',

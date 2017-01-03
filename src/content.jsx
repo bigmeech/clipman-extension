@@ -1,40 +1,11 @@
 'use strict';
 
 import React from './vendor/react'
-import $ from './vendor/jquery'
+import ExtensionRoot from './content/ExtensionRoot'
 
-export default class ExtensionRoot extends React.Component{
-  constructor(){
-    super();
-    this.displayName = '';
-  }
+// TODO: refactor this later happen inside a root component
+const mountNode = document.createElement('div');
+mountNode.id = 'clipman';
+document.body.appendChild(mountNode);
 
-  render (){
-    return (
-      "<div id='clipman-main'></div>"
-    )
-  }
-}
-
-class ClipSpaces extends React.Component{
-
-}
-const Extension = React.createClass({
-  displayName: 'Dialog',
-  render: function(){
-    return (<div/>);
-  }
-});
-
-const Space = React.createClass({
-  displayName: 'Space',
-  render: function(){
-    return (
-        <li>{ this.props.link }</li>
-    );
-  }
-});
-
-$('body').append('<div id="clipman"></div>');
-
-React.render(<Extension></Extension>, document.getElementById('clipman'));
+React.render(<ExtensionRoot></ExtensionRoot>, document.getElementById('clipman'));
