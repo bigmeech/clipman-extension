@@ -12,7 +12,6 @@ const source = require('vinyl-source-stream');
 
 //path to files for build
 const paths = {
-  vendor: 'src/vendor/**/*.js',
   components: 'src/content/**/*.jsx',
   content: 'src/content.jsx',
   background: 'src/background.js',
@@ -40,14 +39,6 @@ gulp.task('copy:static-dist-assets', function(){
 });
 
 /**
- * copies vendor to dist folder
- */
-gulp.task('copy:static-dist-vendor', function(){
-  gulp.src(paths.vendor)
-    .pipe(gulp.dest('dist/vendor'))
-});
-
-/**
  * copies static manifest to dist folder
  */
 gulp.task('copy:static-dist-manifest', function(){
@@ -72,20 +63,11 @@ gulp.task('bundle:dependencies', function(){
  * uses babel as transpiler for es6
  */
 gulp.task('compile:es6', function (){
-
-
   return browserify({entries: paths.background, extensions: ['.js'], debug: true})
     .transform("babelify", {presets: ["es2015", "stage-0"]})
     .bundle()
     .pipe(source('background.js'))
     .pipe(gulp.dest('dist'));
-
-  /*gulp.src(paths.background)
-    .pipe(babel({
-      only: [paths.background],
-      presets: ['es2015']
-    }))
-    .pipe(gulp.dest('dist'))*/
 });
 
 /**
@@ -102,10 +84,9 @@ gulp.task('compile:jsx', function (){
 /**
  *  starts watcher for development
  */
-gulp.task('build:dist', ['copy:static-dist-manifest','copy:static-dist-assets','copy:static-dist-css','copy:static-dist-vendor','compile:jsx','compile:es6']);
+gulp.task('build:dist', ['copy:static-dist-manifest','copy:static-dist-assets','copy:static-dist-css','compile:jsx','compile:es6']);
 gulp.task('start:dev', function(){
   gulp.watch([paths.browserifyEntryPoint, paths.lib], ['bundle:dependencies']);
-  gulp.watch([paths.vendor], ['build:dist']);
   gulp.watch([paths.assets, paths.css, paths.manifest, paths.css], ['build:dist']);
   gulp.watch([paths.content, paths.components], ['compile:jsx']);
   gulp.watch([paths.background], ['compile:es6']);

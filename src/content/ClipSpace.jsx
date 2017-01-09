@@ -1,6 +1,6 @@
 'use strict';
 
-import React from '../vendor/react'
+import React from 'react'
 
 export default class ClipSpaces extends React.Component{
   /**
